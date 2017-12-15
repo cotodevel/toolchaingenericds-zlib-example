@@ -41,22 +41,22 @@ USA
 #include "InterruptsARMCores_h.h"
 #include "specific_shared.h"
 #include "ff.h"
-#include "mem_handler_shared.h"
+#include "mem_handler_sharedTGDS.h"
 #include "reent.h"
 #include "sys/types.h"
 #include "dsregs.h"
 #include "dsregs_asm.h"
-#include "typedefs.h"
-#include "console.h"
-#include "toolchain_utils.h"
+#include "typedefsTGDS.h"
+#include "consoleTGDS.h"
+#include "toolchainutilsTGDS.h"
 
 #include "devoptab_devices.h"
 #include "fsfat_layer.h"
-#include "usrsettings.h"
+#include "usrsettingsTGDS.h"
 
-#include "video.h"
-#include "keypad.h"
-#include "gui.h"
+#include "videoTGDS.h"
+#include "keypadTGDS.h"
+#include "guiTGDS.h"
 
 //zlib
 const char hello[] = "if you see this zlib is working nicely!! ";
