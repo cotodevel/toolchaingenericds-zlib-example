@@ -56,7 +56,6 @@ USA
 
 #include "videoTGDS.h"
 #include "keypadTGDS.h"
-#include "guiTGDS.h"
 
 //zlib
 const char hello[] = "if you see this zlib is working nicely!! ";
