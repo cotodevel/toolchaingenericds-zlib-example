@@ -51,7 +51,7 @@ USA
 #include "utilsTGDS.h"
 
 #include "devoptab_devices.h"
-#include "fsfatlayerTGDSLegacy.h"
+#include "fsfatlayerTGDS.h"
 #include "usrsettingsTGDS.h"
 
 #include "videoTGDS.h"
