@@ -75,6 +75,9 @@ int main(int _argc, sint8 **_argv) {
 	
 	sint32 fwlanguage = (sint32)getLanguage();
 	
+	printf("              ");
+	printf("              ");
+	
 	int ret=FS_init();
 	if (ret == 0)
 	{
@@ -95,6 +98,7 @@ int main(int _argc, sint8 **_argv) {
 	
 	while (1)
 	{
+		scanKeys();
 		//compress / decompress trigger
 		if(keysPressed() & KEY_LEFT){
 			int res;
