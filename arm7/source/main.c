@@ -32,8 +32,9 @@ USA
 //---------------------------------------------------------------------------------
 int main(int _argc, sint8 **_argv) {
 //---------------------------------------------------------------------------------
-	IRQInit();
-	installWifiFIFO();		//use DSWIFI
+	/*			TGDS 1.5 Standard ARM7 Init code start	*/
+	installWifiFIFO();		
+	/*			TGDS 1.5 Standard ARM7 Init code end	*/
 	
     while (1) {
 		IRQVBlankWait();

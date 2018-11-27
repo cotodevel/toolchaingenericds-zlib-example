@@ -67,8 +67,7 @@ static const char* myVersion = ZLIB_VERSION;
 
 int main(int _argc, sint8 **_argv) {
 	
-	IRQInit();
-	
+	/*			TGDS 1.5 Standard ARM9 Init code start	*/
 	bool project_specific_console = false;	//set default console or custom console: default console
 	GUI_init(project_specific_console);
 	GUI_clear();
@@ -87,6 +86,7 @@ int main(int _argc, sint8 **_argv) {
 	{
 		printf("FS Init error.");
 	}
+	/*			TGDS 1.5 Standard ARM9 Init code end	*/
 	
 	//Check zlib version
 	if (zlibVersion()[0] != myVersion[0]){
