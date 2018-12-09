@@ -56,6 +56,7 @@ USA
 
 #include "videoTGDS.h"
 #include "keypadTGDS.h"
+#include "dswnifi_lib.h"
 
 //zlib
 const char hello[] = "if you see this zlib is working nicely!! ";
@@ -86,6 +87,7 @@ int main(int _argc, sint8 **_argv) {
 	{
 		printf("FS Init error.");
 	}
+	switch_dswnifi_mode(dswifi_idlemode);
 	/*			TGDS 1.5 Standard ARM9 Init code end	*/
 	
 	//Check zlib version
