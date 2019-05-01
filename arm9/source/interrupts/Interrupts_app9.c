@@ -29,6 +29,7 @@ USA
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void IpcSynchandlerUser(){
 	
 }
@@ -36,36 +37,42 @@ void IpcSynchandlerUser(){
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void Timer0handlerUser(){
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void Timer1handlerUser(){
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void Timer2handlerUser(){
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void Timer3handlerUser(){
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void HblankUser(){
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void VblankUser(){
 	struct sIPCSharedTGDSSpecific * TGDSUSERIPC = (struct sIPCSharedTGDSSpecific *)TGDSIPCUserStartAddress;
 	if(TGDSUSERIPC->frameCounter9 < 60){
@@ -79,6 +86,7 @@ void VblankUser(){
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void VcounterUser(){
 }
 
@@ -87,6 +95,7 @@ void VcounterUser(){
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
+inline __attribute__((always_inline)) 
 void ScreenlidhandlerUser(){
 
 }
