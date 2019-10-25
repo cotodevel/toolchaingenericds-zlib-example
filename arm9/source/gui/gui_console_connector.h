@@ -34,11 +34,9 @@ USA
 #include "dsregs.h"
 #include "consoleTGDS.h"
 #include "biosTGDS.h"
-
 #include "InterruptsARMCores_h.h"
 #include "dmaTGDS.h"
-
-#include "memoryHandleTGDS.h"
+#include "utilsTGDS.h"
 #include "fatfslayerTGDS.h"
 #include "keypadTGDS.h"
 #include "videoTGDS.h"
