@@ -18,43 +18,16 @@ USA
 
 */
 
-#include "socket.h"
-#include "in.h"
-#include <netdb.h>
-#include <ctype.h>
-#include <stdarg.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-
-#include "zlib.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
 #include "main.h"
-#include "InterruptsARMCores_h.h"
-#include "ipcfifoTGDSUser.h"
-#include "ff.h"
-#include "reent.h"
-#include "sys/types.h"
+
+#include "typedefsTGDS.h"
 #include "dsregs.h"
 #include "dsregs_asm.h"
-#include "typedefsTGDS.h"
-#include "consoleTGDS.h"
-#include "utilsTGDS.h"
+#include <string.h>
+#include <stdlib.h>
 
-#include "devoptab_devices.h"
-#include "fatfslayerTGDS.h"
-#include "usrsettingsTGDS.h"
-
-#include "videoTGDS.h"
-#include "keypadTGDS.h"
+#include "zlib.h"
+#include "gui_console_connector.h"
 #include "dswnifi_lib.h"
 
 //zlib
