@@ -138,3 +138,7 @@ endif
 	-@rm -rf $(CURDIR)/$(PosIndCodeDIR_FILENAME)/$(DIR_ARM9)/Makefile
 	-@rm -fr $(EXECUTABLE_FNAME)	$(CURDIR)/common/templateCode/
 	
+rebase:
+	git reset --hard HEAD
+	git clean -f -d
+	git pull
