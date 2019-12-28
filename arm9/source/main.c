@@ -30,6 +30,7 @@ USA
 #include "gui_console_connector.h"
 #include "dswnifi_lib.h"
 #include "TGDSLogoLZSSCompressed.h"
+#include "biosTGDS.h"
 
 //zlib
 const char hello[] = "if you see this zlib is working nicely!! ";
@@ -162,6 +163,7 @@ int main(int _argc, sint8 **_argv) {
 			GUI_clear();
 		}
 		
+		handleARM9SVC();	/* Do not remove, handles TGDS services */
 		IRQVBlankWait();
 	}
 
