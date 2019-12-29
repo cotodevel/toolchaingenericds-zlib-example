@@ -8,8 +8,8 @@ After compiling, run the example in NDS.
 
 Project Specific description: 
 
-Press L to compress a string, decompress, and the output buffer should be a readable message.
-Press B to clean the screen.
+Button (L): Test ZLIB component. Compress a string, decompress, and the output buffer should be a readable message.
+Button (Select): This menu.
 
 
 Coto

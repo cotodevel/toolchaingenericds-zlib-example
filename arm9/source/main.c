@@ -19,7 +19,6 @@ USA
 */
 
 #include "main.h"
-
 #include "typedefsTGDS.h"
 #include "dsregs.h"
 #include "dsregs_asm.h"
@@ -40,6 +39,17 @@ static const char* myVersion = ZLIB_VERSION;
 //Coto, Note: this example requires that you know the compressed buffer size and the uncompressed buffer size previous any zlib operation.
 // for anything else check the zlib.h file/documentation.
 
+static inline void menuShow(){
+	clrscr();
+	printf("     ");
+	printf("     ");
+	
+	printf("toolchaingenericds-zlib-example ");
+	printf("(Select): This menu ");
+	printf("(Left): ZLIB test ");
+	
+}
+
 int main(int _argc, sint8 **_argv) {
 	
 	/*			TGDS 1.5 Standard ARM9 Init code start	*/
@@ -48,9 +58,6 @@ int main(int _argc, sint8 **_argv) {
 	GUI_clear();
 	
 	sint32 fwlanguage = (sint32)getLanguage();
-	
-	printf("              ");
-	printf("              ");
 	
 	int ret=FS_init();
 	if (ret == 0)
@@ -74,6 +81,8 @@ int main(int _argc, sint8 **_argv) {
 	else if (strcmp(zlibVersion(), ZLIB_VERSION) != 0){
 		printf("warning: different zlib version\n");
 	}
+	
+	menuShow();
 	
 	while (1)
 	{
@@ -156,11 +165,17 @@ int main(int _argc, sint8 **_argv) {
 
 			free(compr);
 			free(uncompr);
-
-		}
 			
-		if (keysPressed() & KEY_B){
-			GUI_clear();
+			while(keysPressed() & KEY_LEFT){
+				scanKeys();
+			}
+		}
+		
+		if (keysPressed() & KEY_SELECT){
+			menuShow();
+			while(keysPressed() & KEY_SELECT){
+				scanKeys();
+			}
 		}
 		
 		handleARM9SVC();	/* Do not remove, handles TGDS services */
