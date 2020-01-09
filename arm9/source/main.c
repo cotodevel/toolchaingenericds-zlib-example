@@ -47,6 +47,7 @@ static inline void menuShow(){
 	printf("toolchaingenericds-zlib-example ");
 	printf("(Select): This menu ");
 	printf("(Left): ZLIB test ");
+	printf("Available heap memory: %d", getMaxRam());
 	
 }
 
