@@ -30,6 +30,7 @@ USA
 #include "dswnifi_lib.h"
 #include "TGDSLogoLZSSCompressed.h"
 #include "biosTGDS.h"
+#include "global_settings.h"
 
 //zlib
 const char hello[] = "if you see this zlib is working nicely!! ";
@@ -59,8 +60,9 @@ int main(int _argc, sint8 **_argv) {
 	GUI_clear();
 	
 	sint32 fwlanguage = (sint32)getLanguage();
-	
+	#ifdef ARM7_DLDI
 	setDLDIARM7Address((u32 *)TGDSDLDI_ARM7_ADDRESS);	//Required by ARM7DLDI!
+	#endif
 	int ret=FS_init();
 	if (ret == 0)
 	{
