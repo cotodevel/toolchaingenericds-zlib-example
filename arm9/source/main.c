@@ -33,6 +33,7 @@ USA
 #include "global_settings.h"
 #include "posixHandleTGDS.h"
 #include "TGDSMemoryAllocator.h"
+#include "ipcfifoTGDSUser.h"
 
 //zlib
 const char hello[] = "if you see this zlib is working nicely!! ";
