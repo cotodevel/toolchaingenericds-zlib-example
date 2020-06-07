@@ -23,6 +23,8 @@ USA
 
 #include "typedefsTGDS.h"
 #include "dsregs.h"
+#include "fatfslayerTGDS.h"
+#include "utilsTGDS.h"
 
 #endif
 
@@ -31,7 +33,7 @@ USA
 extern "C" {
 #endif
 
-extern int main(int _argc, sint8 **_argv);
+extern int main(int argc, char argv[argvItems][MAX_TGDSFILENAME_LENGTH]);
 
 #ifdef __cplusplus
 }
