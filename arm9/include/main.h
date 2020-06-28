@@ -34,6 +34,7 @@ extern "C" {
 #endif
 
 extern int main(int argc, char argv[argvItems][MAX_TGDSFILENAME_LENGTH]);
+extern char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH+1];
 
 #ifdef __cplusplus
 }

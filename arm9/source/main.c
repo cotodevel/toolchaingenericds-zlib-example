@@ -36,25 +36,42 @@ USA
 #include "ipcfifoTGDSUser.h"
 #include "fatfslayerTGDS.h"
 #include "utilsTGDS.h"
+#include "fileBrowse.h"
 
-//zlib
-const char hello[] = "if you see this zlib is working nicely!! ";
-uLong len = (uLong)strlen(hello)+1;
+char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH+1];
+
 static const char* myVersion = ZLIB_VERSION;
-
-//Coto, Note: this example requires that you know the compressed buffer size and the uncompressed buffer size previous any zlib operation.
-// for anything else check the zlib.h file/documentation.
 
 static inline void menuShow(){
 	clrscr();
 	printf("     ");
 	printf("     ");
-	
 	printf("toolchaingenericds-zlib-example ");
+	printf("Button (Start): File browser ");
+	printf("    Button (A) Unzip file ");
 	printf("(Select): This menu ");
-	printf("(Left): ZLIB test ");
+	printf("(R): Shutdown DS. >%d", TGDSPrintfColor_Red);
 	printf("Available heap memory: %d", getMaxRam());
 	printarm7DebugBuffer();
+	
+	//Check zlib version
+	if (zlibVersion()[0] != myVersion[0]){
+		printf("incompatible zlib version. Turn off NDS. ");
+		while(1==1){
+			handleARM9SVC();	/* Do not remove, handles TGDS services */
+			IRQVBlankWait();
+		}
+	} 
+	else if (strcmp(zlibVersion(), ZLIB_VERSION) != 0){
+		printf("warning: different zlib version. Turn off NDS. ");
+		while(1==1){
+			handleARM9SVC();	/* Do not remove, handles TGDS services */
+			IRQVBlankWait();
+		}
+	}
+	else{
+		printf("ZLIB Version: %s", ZLIB_VERSION);
+	}
 }
 
 int main(int argc, char argv[argvItems][MAX_TGDSFILENAME_LENGTH]) {
@@ -86,106 +103,51 @@ int main(int argc, char argv[argvItems][MAX_TGDSFILENAME_LENGTH]) {
 	//Remove logo and restore Main Engine registers
 	//restoreFBModeMainEngine();
 	
-	//Check zlib version
-	if (zlibVersion()[0] != myVersion[0]){
-		printf("incompatible zlib version\n");
-	} 
-	else if (strcmp(zlibVersion(), ZLIB_VERSION) != 0){
-		printf("warning: different zlib version\n");
-	}
-	
 	menuShow();
 	
 	while (1)
 	{
 		scanKeys();
-		//compress / decompress trigger
-		if(keysPressed() & KEY_LEFT){
-			int res;
-			static Byte *compr, *uncompr;
-
-			uLong comprLen = (1024*20); //20KB
-			uLong uncomprLen = comprLen;
-
-			//create storage buffer that holds compressed data
-			compr    = (Byte*)malloc((uInt)comprLen);
-			uncompr  = (Byte*)malloc((uInt)uncomprLen);
-
-			//compress
-			res = compress(compr,&comprLen,(const Bytef*)hello,len);
-			switch(res){
-				case(Z_OK):
-					printf("stream compress status: OK! "); //(%x) BUFFER-> (add:(%x) sz:(%x))",Z_OK,(unsigned int)&compr,(unsigned int)comprLen);
-				break;
-				case(Z_STREAM_END):
-					printf("stream compress status: error, unexpected end! (%x)",Z_STREAM_END);
-				break;
-				case(Z_NEED_DICT):
-					printf("stream compress status: error, need dictionary! (%x)",Z_NEED_DICT);
-				break;
-				case(Z_ERRNO):
-					printf("stream compress status: error, cant open file! (%x)",Z_ERRNO);
-				break;
-				case(Z_STREAM_ERROR):
-					printf("stream compress status: error, corrupted source stream! (%x)",Z_STREAM_ERROR);
-				break;
-				case(Z_DATA_ERROR):
-					printf("stream compress status: error, data not zlib ! (%x)",Z_DATA_ERROR);
-				break;
-				case(Z_MEM_ERROR):
-					printf("stream compress status: error, memory source corrupted! (%x)",Z_MEM_ERROR);
-				break;
-				case(Z_BUF_ERROR):
-					printf("stream compress status: error, not enough room in the output buffer! (%x)",Z_BUF_ERROR);
-				break;
+		if (keysPressed() & KEY_START){
+			char startPath[MAX_TGDSFILENAME_LENGTH+1];
+			strcpy(startPath,"/");
+			while( ShowBrowser((char *)startPath, (char *)&curChosenBrowseFile[0]) == true ){	//as long you keep using directories ShowBrowser will be true
+				
 			}
-
-			//decompress
-			res=uncompress(uncompr,&uncomprLen,compr,comprLen);
-
-			switch(res){
-				case(Z_OK):
-					printf("stream decomp status: OK! (%x) ",Z_OK);
-				break;
-				case(Z_STREAM_END):
-					printf("stream decomp status: error, unexpected end! (%x)",Z_STREAM_END);
-				break;
-				case(Z_NEED_DICT):
-					printf("stream decomp status: error, need dictionary! (%x)",Z_NEED_DICT);
-				break;
-				case(Z_ERRNO):
-					printf("stream decomp status: error, cant open file! (%x)",Z_ERRNO);
-				break;
-				case(Z_STREAM_ERROR):
-					printf("stream decomp status: error, corrupted source stream! (%x)",Z_STREAM_ERROR);
-				break;
-				case(Z_DATA_ERROR):
-					printf("stream decomp status: error, data not zlib ! (%x)",Z_DATA_ERROR);
-				break;
-				case(Z_MEM_ERROR):
-					printf("stream decomp status: error, memory source corrupted! (%x)",Z_MEM_ERROR);
-				break;
-				case(Z_BUF_ERROR):
-					printf("stream decomp status: error, not enough room in the output buffer! (%x)",Z_BUF_ERROR);
-				break;
-			}
-
-			//printf("uncompressed BUFFER: (addr: (%x) sz: (%x)) ",(int)&uncompr,(unsigned int)uncomprLen);
-			volatile uint8 bufuncomspafe[512];
-			memcpy((uint8*)&bufuncomspafe[0],(uint8*)uncompr,uncomprLen);
-			printf("%s",(char*)&bufuncomspafe[0]);
-
-			free(compr);
-			free(uncompr);
 			
-			while(keysPressed() & KEY_LEFT){
+			clrscr();
+			printf(" -- ");
+			printf("Unzip start.");
+			char unzippedFile[MAX_TGDSFILENAME_LENGTH+1];
+			load_gz((char*)curChosenBrowseFile, (char*)unzippedFile);
+			printf("File:%s unzipped into %s", curChosenBrowseFile, unzippedFile);
+			printf("Press A to exit");
+			
+			while(1==1){
+				scanKeys();
+				if(keysPressed()&KEY_A){
+					break;
+				}
+			}
+			
+			scanKeys();
+			while((keysPressed() & KEY_A) || (keysPressed() & KEY_START)){
 				scanKeys();
 			}
+			menuShow();
 		}
 		
 		if (keysPressed() & KEY_SELECT){
 			menuShow();
 			while(keysPressed() & KEY_SELECT){
+				scanKeys();
+			}
+		}
+		
+		if (keysPressed() & KEY_R){
+			printf("NDS should shutdown now. Otherwise unimplemented.>%d", TGDSPrintfColor_Red);
+			shutdownNDSHardware();
+			while(keysPressed() & KEY_R){
 				scanKeys();
 			}
 		}
