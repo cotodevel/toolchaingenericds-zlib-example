@@ -112,7 +112,7 @@ int main(int argc, char argv[argvItems][MAX_TGDSFILENAME_LENGTH]) {
 	while (1)
 	{
 		scanKeys();
-		if (keysPressed() & KEY_START){
+		if (keysDown() & KEY_START){
 			char startPath[MAX_TGDSFILENAME_LENGTH+1];
 			strcpy(startPath,"/");
 			while( ShowBrowser((char *)startPath, (char *)&curChosenBrowseFile[0]) == true ){	//as long you keep using directories ShowBrowser will be true
@@ -129,29 +129,29 @@ int main(int argc, char argv[argvItems][MAX_TGDSFILENAME_LENGTH]) {
 			
 			while(1==1){
 				scanKeys();
-				if(keysPressed()&KEY_A){
+				if(keysDown()&KEY_A){
 					break;
 				}
 			}
 			
 			scanKeys();
-			while((keysPressed() & KEY_A) || (keysPressed() & KEY_START)){
+			while((keysDown() & KEY_A) || (keysDown() & KEY_START)){
 				scanKeys();
 			}
 			menuShow();
 		}
 		
-		if (keysPressed() & KEY_SELECT){
+		if (keysDown() & KEY_SELECT){
 			menuShow();
-			while(keysPressed() & KEY_SELECT){
+			while(keysDown() & KEY_SELECT){
 				scanKeys();
 			}
 		}
 		
-		if (keysPressed() & KEY_R){
+		if (keysDown() & KEY_R){
 			printf("NDS should shutdown now. Otherwise unimplemented.>%d", TGDSPrintfColor_Red);
 			shutdownNDSHardware();
-			while(keysPressed() & KEY_R){
+			while(keysDown() & KEY_R){
 				scanKeys();
 			}
 		}
