@@ -18,14 +18,14 @@ USA
 
 */
 
-#include "typedefsTGDS.h"
+#include "ipcfifoTGDSUser.h"
 #include "dsregs.h"
 #include "dsregs_asm.h"
+
+#include "InterruptsARMCores_h.h"
 #include "interrupts.h"
-#include "biosTGDS.h"
-#include "ipcfifoTGDSUser.h"
-#include "spifwTGDS.h"
 #include "wifi_arm7.h"
+#include "main.h"
 #include "eventsTGDS.h"
 
 //User Handler Definitions
@@ -81,13 +81,8 @@ void HblankUser(){
 __attribute__((section(".itcm")))
 #endif
 void VblankUser(){
-	struct sIPCSharedTGDSSpecific* TGDSUSERIPC = getsIPCSharedTGDSSpecific();
-	if(TGDSUSERIPC->frameCounter7 < 60){
-		TGDSUSERIPC->frameCounter7++;
-	}
-	else{
-		TGDSUSERIPC->frameCounter7 = 0;
-	}
+	
+
 }
 
 #ifdef ARM9
