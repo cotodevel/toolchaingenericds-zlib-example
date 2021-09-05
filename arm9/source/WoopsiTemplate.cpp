@@ -29,7 +29,7 @@
 
 static const char* myVersion = ZLIB_VERSION;
 
-__attribute__((section(".itcm")))
+__attribute__((section(".dtcm")))
 WoopsiTemplate * WoopsiTemplateProc = NULL;
 
 void WoopsiTemplate::startup(int argc, char **argv) {
