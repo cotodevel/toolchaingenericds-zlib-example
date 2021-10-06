@@ -26,6 +26,7 @@
 #include "fatfslayerTGDS.h"
 #include "utilsTGDS.h"
 #include "xenofunzip.h"
+#include "zipDecomp.h"
 
 static const char* myVersion = ZLIB_VERSION;
 
@@ -169,19 +170,14 @@ void WoopsiTemplate::handleValueChangeEvent(const GadgetEventArgs& e) {
 			
 			_MultiLineTextBoxLogger->removeText(0);
 			_MultiLineTextBoxLogger->moveCursorToPosition(0);
-			_MultiLineTextBoxLogger->appendText(WoopsiString("Unzip start.\n"));
+			_MultiLineTextBoxLogger->appendText(WoopsiString("Unzipping -> dir: [/] ...\n"));
 			
-			char unzippedFile[256+1];
-			memset(unzippedFile, 0, sizeof(unzippedFile));
-			char arrBuild[256+1];
-			memset(arrBuild, 0, sizeof(arrBuild));
-			if(load_gz((char*)currentFileChosen, (char*)unzippedFile) == 0){
-				sprintf(arrBuild, "File:[%s]\nunzipped into \n[%s]\n", currentFileChosen, unzippedFile);
-				_MultiLineTextBoxLogger->appendText(WoopsiString(arrBuild));
+			if(handleDecompressor(currentFileChosen, (char*)&logBuf[0]) == 0){
+				WoopsiTemplateProc->_MultiLineTextBoxLogger->appendText(WoopsiString("Unpack OK"));
+				WoopsiTemplateProc->_MultiLineTextBoxLogger->appendText(WoopsiString((char*)&logBuf[0]));
 			}
 			else{
-				sprintf(arrBuild, "File:[%s]\n not .ZIP!\n", currentFileChosen);
-				_MultiLineTextBoxLogger->appendText(WoopsiString(arrBuild));
+				WoopsiTemplateProc->_MultiLineTextBoxLogger->appendText(WoopsiString("Corrupted / Not a .ZIP file"));
 			}
 			waitForAOrTouchScreenButtonMessage(_MultiLineTextBoxLogger, "Press (A) or tap touchscreen to continue. \n");
 			

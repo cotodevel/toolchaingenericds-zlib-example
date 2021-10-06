@@ -19,7 +19,9 @@ Project Specific description:
 A Woopsi UI + TGDS SDK template for UI control handling on the NintendoDS. 
 Draw the pop up windows across the screen or scroll other windows to test touchscreen. 
 Also plays WAV/AD-PCM (Intel) files from the directory!
-Also allows to decompress a .ZIP of any size. May be slower on slower ASIC slot-1 cards or if the DLDI driver is unoptimized.
+
+- Also allows to decompress multiple files within a .ZIP of any size. 
+  May be slower on slower ASIC slot-1 cards or if the DLDI driver is unoptimized.
 
 Note: UI Controls experimental.
 
