@@ -1,5 +1,6 @@
 ![ToolchainGenericDS](img/TGDS-Logo.png)
 
+master: Development branch. Use TGDS1.64Stable: branch for stable features.
 
 This is the ToolchainGenericDS Woopsi ZLIB Compression project:
 
