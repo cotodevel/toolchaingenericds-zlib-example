@@ -33,6 +33,12 @@ static const char* myVersion = ZLIB_VERSION;
 __attribute__((section(".dtcm")))
 WoopsiTemplate * WoopsiTemplateProc = NULL;
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::startup(int argc, char **argv) {
 	
 	Rect rect;
@@ -133,10 +139,22 @@ void WoopsiTemplate::startup(int argc, char **argv) {
 	redraw();			// Draw initial state
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::shutdown() {
 	Woopsi::shutdown();
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::waitForAOrTouchScreenButtonMessage(MultiLineTextBox* thisLineTextBox, const WoopsiString& thisText){
 	thisLineTextBox->appendText(thisText);
 	scanKeys();
@@ -149,6 +167,12 @@ void WoopsiTemplate::waitForAOrTouchScreenButtonMessage(MultiLineTextBox* thisLi
 	}
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::handleValueChangeEvent(const GadgetEventArgs& e) {
 
 	// Did a gadget fire this event?
@@ -177,7 +201,7 @@ void WoopsiTemplate::handleValueChangeEvent(const GadgetEventArgs& e) {
 				WoopsiTemplateProc->_MultiLineTextBoxLogger->appendText(WoopsiString((char*)&logBuf[0]));
 			}
 			else{
-				WoopsiTemplateProc->_MultiLineTextBoxLogger->appendText(WoopsiString("Corrupted / Not a .ZIP file"));
+				WoopsiTemplateProc->_MultiLineTextBoxLogger->appendText(WoopsiString("Fail write \n Corrupted ZIP \n Not a .ZIP file"));
 			}
 			waitForAOrTouchScreenButtonMessage(_MultiLineTextBoxLogger, "Press (A) or tap touchscreen to continue. \n");
 			
@@ -189,6 +213,12 @@ void WoopsiTemplate::handleValueChangeEvent(const GadgetEventArgs& e) {
 	}
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::handleLidClosed() {
 	// Lid has just been closed
 	_lidClosed = true;
@@ -201,6 +231,12 @@ void WoopsiTemplate::handleLidClosed() {
 	}
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::handleLidOpen() {
 	// Lid has just been opened
 	_lidClosed = false;
@@ -213,6 +249,12 @@ void WoopsiTemplate::handleLidOpen() {
 	}
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void WoopsiTemplate::handleClickEvent(const GadgetEventArgs& e) {
 	switch (e.getSource()->getRefcon()) {
 		//_Index Event
@@ -276,6 +318,12 @@ char currentFileChosen[256+1];
 
 //Called once Woopsi events are ended: TGDS Main Loop
 __attribute__((section(".itcm")))
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O2")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void Woopsi::ApplicationMainLoop(){
 	//Earlier.. main from Woopsi SDK.
 	
