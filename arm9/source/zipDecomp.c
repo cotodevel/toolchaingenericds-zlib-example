@@ -25,6 +25,12 @@
 
 char logBuf[4096];
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 int handleDecompressor(char * zippedFile, char * buf){
 	//Handle Package
 	int argCount = 2;
