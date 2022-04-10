@@ -79,23 +79,9 @@ static inline void menuShow(){
 	printf("Available heap memory: %d >%d", getMaxRam(), TGDSPrintfColor_Cyan);
 }
 
-//ToolchainGenericDS-LinkedModule User implementation: Called if TGDS-LinkedModule fails to reload ARM9.bin from DLDI.
 char args[8][MAX_TGDSFILENAME_LENGTH];
 char *argvs[8];
 
-//generates a table of sectors out of a given file. It has the ARM7 binary and ARM9 binary
-__attribute__((section(".itcm")))
-#if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
-#endif
-#if (!defined(__GNUC__) && defined(__clang__))
-__attribute__ ((optnone))
-#endif
-int TGDSProjectReturnFromLinkedModule() {
-	return -1;
-}
-
-//generates a table of sectors out of a given file. It has the ARM7 binary and ARM9 binary
 __attribute__((section(".itcm")))
 #if (defined(__GNUC__) && !defined(__clang__))
 __attribute__((optimize("O2")))
