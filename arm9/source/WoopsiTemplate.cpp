@@ -27,6 +27,7 @@
 #include "utilsTGDS.h"
 #include "xenofunzip.h"
 #include "zipDecomp.h"
+#include "debugNocash.h"
 
 static const char* myVersion = ZLIB_VERSION;
 
