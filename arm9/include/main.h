@@ -42,7 +42,7 @@ extern struct fd * _FileHandleVideo;
 extern struct fd * _FileHandleAudio;
 extern bool stopSoundStreamUser();
 extern void closeSoundUser();
-extern char args[8][MAX_TGDSFILENAME_LENGTH];
+extern char args[8][MAX_TGDSFILENAME_LENGTH];	//used by zip de/compressor
 extern char *argvs[8];
 
 #ifdef __cplusplus
