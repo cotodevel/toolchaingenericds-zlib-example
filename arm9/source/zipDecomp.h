@@ -12,7 +12,6 @@
 #include "fileBrowse.h"	//generic template functions from TGDS: maintain 1 source, whose changes are globally accepted by all TGDS Projects.
 #include "lzss9.h"
 #include "nds_cp15_misc.h"
-#include "click_raw.h"
 #include "soundTGDS.h"
 #include "biosTGDS.h"
 #include "busTGDS.h"
