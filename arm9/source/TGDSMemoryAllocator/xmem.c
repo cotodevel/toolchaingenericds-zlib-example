@@ -15,7 +15,7 @@
 #include "utilsTGDS.h"
 
 // default use 1.5 MB
-unsigned int XMEMTOTALSIZE = (128*1024);
+unsigned int XMEMTOTALSIZE = (1500*1024);
 
 // how many bytes will each of our blocks be?
 unsigned short XMEM_BLOCKSIZE = 128;
@@ -30,6 +30,7 @@ unsigned int XMEM_TABLESIZE = 0;
 #define XMEM_ENDBLOCK 0x02
 #define XMEM_USEDBLOCK 0x04
 
+
 unsigned char *xmem_table;
 //XMEM_BLOCK *xmem_blocks;
 unsigned char *xmem_blocks;
@@ -42,8 +43,10 @@ __attribute__((optimize("O0")))
 __attribute__ ((optnone))
 #endif
 void XmemSetup(unsigned int size, unsigned short blocks) {
+
 	XMEMTOTALSIZE = size;
 	XMEM_BLOCKSIZE = blocks;
+	
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
