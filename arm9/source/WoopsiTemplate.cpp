@@ -23,6 +23,7 @@
 #include "global_settings.h"
 #include "TGDSMemoryAllocator.h"
 #include "ipcfifoTGDSUser.h"
+#include "loader.h"
 #include "fatfslayerTGDS.h"
 #include "utilsTGDS.h"
 #include "xenofunzip.h"
@@ -35,7 +36,7 @@ __attribute__((section(".dtcm")))
 WoopsiTemplate * WoopsiTemplateProc = NULL;
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -101,7 +102,7 @@ void WoopsiTemplate::startup(int argc, char **argv) {
 	_fileScreen->insertGadget(new Gradient(0, SCREEN_TITLE_HEIGHT, 256, 192 - SCREEN_TITLE_HEIGHT, woopsiRGB(0, 31, 0), woopsiRGB(0, 0, 31)));
 	
 	// Create FileRequester
-	_fileReq = new FileRequester(10, 10, 150, 150, "Files", "/", GADGET_DRAGGABLE | GADGET_DOUBLE_CLICKABLE);
+	_fileReq = new FileRequester(10, 10, 250, 150, "Files", "/", GADGET_DRAGGABLE | GADGET_DOUBLE_CLICKABLE);
 	_fileReq->setRefcon(1);
 	_fileScreen->addGadget(_fileReq);
 	_fileReq->addGadgetEventHandler(this);
@@ -141,7 +142,7 @@ void WoopsiTemplate::startup(int argc, char **argv) {
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -151,7 +152,7 @@ void WoopsiTemplate::shutdown() {
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -169,7 +170,7 @@ void WoopsiTemplate::waitForAOrTouchScreenButtonMessage(MultiLineTextBox* thisLi
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -215,7 +216,7 @@ void WoopsiTemplate::handleValueChangeEvent(const GadgetEventArgs& e) {
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -233,7 +234,7 @@ void WoopsiTemplate::handleLidClosed() {
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -251,7 +252,7 @@ void WoopsiTemplate::handleLidOpen() {
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -320,7 +321,7 @@ char currentFileChosen[256+1];
 //Called once Woopsi events are ended: TGDS Main Loop
 __attribute__((section(".itcm")))
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O2")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
