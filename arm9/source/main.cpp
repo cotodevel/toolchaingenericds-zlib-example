@@ -45,6 +45,7 @@ USA
 #include "utils.twl.h"
 #include "spitscTGDS.h"
 #include "loader.h"
+#include "TGDSLogoLZSSCompressed.h"
 
 // Includes
 #include "WoopsiTemplate.h"
@@ -53,16 +54,16 @@ USA
 #include "fatfslayerTGDS.h"
 #include <stdio.h>
 
-//ARM7 VRAM core
-#include "arm7bootldr.h"
-#include "arm7bootldr_twl.h"
+//TGDS-MB ARM7 Bootldr (embedded ARM7 VRAM core)
+#include "arm7bootldr_standalone.h"
+#include "arm7bootldr_standalone_twl.h"
 
-u32 * getTGDSMBV3ARM7Bootloader(){
+u32 * getTGDSARM7VRAMCore(){	//Required by ToolchainGenericDS-multiboot v3
 	if(__dsimode == false){
-		return (u32*)&arm7bootldr[0];	
+		return (u32*)&arm7bootldr_standalone[0];	
 	}
 	else{
-		return (u32*)&arm7bootldr_twl[0];
+		return (u32*)&arm7bootldr_standalone_twl[0];
 	}
 }
 
@@ -114,11 +115,15 @@ int main(int argc, char **argv) {
 	memcpy((void *)TGDS_MB_V3_ARM7_STAGE1_ADDR, (const void *)0x02380000, (int)(96*1024));	//
 	coherent_user_range_by_size((uint32)TGDS_MB_V3_ARM7_STAGE1_ADDR, (int)(96*1024)); //		also for TWL binaries 
 	
+	//Execute Stage 2: VRAM ARM7 payload: NTR/TWL (0x06000000)
+	u32 * payload = getTGDSARM7VRAMCore();
+	executeARM7Payload((u32)0x02380000, 96*1024, payload);
+	
 	bool isTGDSCustomConsole = false;	//set default console or custom console: default console
 	GUI_init(isTGDSCustomConsole);
 	GUI_clear();
 
-	bool isCustomTGDSMalloc = true;
+	bool isCustomTGDSMalloc = true;	//Xmem's malloc
 	setTGDSMemoryAllocator(getProjectSpecificMemoryAllocatorSetup(isCustomTGDSMalloc));
 	sint32 fwlanguage = (sint32)getLanguage();
 	
