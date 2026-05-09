@@ -26,6 +26,7 @@ USA
 #include "utilsTGDS.h"
 #include "limitsTGDS.h"
 #include "dldi.h"
+#include "TGDS_threads.h"
 
 #endif
 
@@ -34,7 +35,7 @@ USA
 extern "C" {
 #endif
 
-extern u32 * getTGDSARM7VRAMCore();
+extern u32 * getTGDSMBV3ARM7Bootloader();
 extern int main(int argc, char **argv);
 extern void ApplicationMainLoop();
 
@@ -44,6 +45,8 @@ extern struct fd * _FileHandleVideo;
 extern struct fd * _FileHandleAudio;
 extern bool stopSoundStreamUser();
 extern void closeSoundUser();
+extern struct task_Context * internalTGDSThreads;
+
 extern char args[8][MAX_TGDSFILENAME_LENGTH];	//used by zip de/compressor
 extern char *argvs[8];
 
